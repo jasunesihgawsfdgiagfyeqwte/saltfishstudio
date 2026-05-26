@@ -182,13 +182,15 @@
   }
 
   /* ---------- Age Gate ---------- */
-  // Always start at top when page loads (before age gate is dismissed)
-  if (document.getElementById('ag') && !document.getElementById('ag').classList.contains('hide')) {
-    window.scrollTo(0, 0);
-  }
+  // Prevent browser scroll restoration — always start at top
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+
   window.ageConfirm = function () {
     document.getElementById('ag').classList.add('hide');
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    window.scrollTo(0, 0);
+    // Restore normal scroll behavior after gate
+    if ('scrollRestoration' in history) history.scrollRestoration = 'auto';
   };
   window.ageReject = function () {
     window.location.href = 'about:blank';

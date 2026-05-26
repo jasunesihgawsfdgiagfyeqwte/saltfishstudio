@@ -246,11 +246,11 @@
 
     var finalContent = content + (imageUrl ? '\n' + imageUrl : '');
 
-    var { error } = await sb.from('comments').insert({
+    var { data: insertData, error } = await sb.from('comments').insert({
       user_id: currentUser.id,
       nick: nick,
       content: finalContent
-    });
+    }).select('id').single();
 
     btn.disabled = false;
     btn.textContent = '发表留言';
@@ -260,14 +260,15 @@
     text.value = '';
     document.getElementById('cmtLen').textContent = '0';
     clearImage();
-    prependComment({ id: null, nick: nick, content: finalContent, created_at: new Date().toISOString(), user_id: currentUser.id });
+    var newId = insertData ? insertData.id : null;
+    prependComment({ id: newId, nick: nick, content: finalContent, created_at: new Date().toISOString(), user_id: currentUser.id });
   };
 
   // ---------- Delete Comment ----------
   window.deleteComment = async function (id, el) {
     if (!confirm('确定删除这条留言？')) return;
     var { error } = await sb.from('comments').delete().eq('id', id);
-    if (error) { alert('删除失败'); return; }
+    if (error) { console.error('Delete error:', error); alert('删除失败: ' + error.message); return; }
     el.closest('.cmt-item').remove();
     // Check if list is empty
     var listEl = document.getElementById('cmtList');
