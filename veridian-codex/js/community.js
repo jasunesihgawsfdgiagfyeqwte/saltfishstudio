@@ -43,6 +43,10 @@
   if (window.supabase) {
     sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     initSession();
+  } else {
+    console.error('[Community] Supabase SDK not loaded');
+    var hint = document.getElementById('cmtHint');
+    if (hint) hint.querySelector('p').textContent = '评论系统加载失败，请刷新重试';
   }
 
   async function initSession() {
@@ -96,6 +100,7 @@
 
   // ---------- Register ----------
   window.doRegister = async function () {
+    if (!sb) return showAuthError('系统未就绪，请刷新页面');
     var nick = document.getElementById('regNick').value.trim();
     var user = document.getElementById('regUser').value.trim();
     var pass = document.getElementById('regPass').value;
