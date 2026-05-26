@@ -240,6 +240,10 @@
             <span id="cmtNick"></span>
             <button class="cmt-logout" onclick="doLogout()">退出</button>
           </div>
+          <div class="cmt-reply-bar" id="replyBar" style="display:none">
+            <span></span>
+            <button onclick="cancelReply()">取消</button>
+          </div>
           <textarea id="cmtText" placeholder="说点什么吧…" maxlength="500" rows="3"></textarea>
           <div id="cmtPreview" class="cmt-preview" style="display:none">
             <img id="cmtPreviewImg" src="" alt="">

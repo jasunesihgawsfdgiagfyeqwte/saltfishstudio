@@ -737,6 +737,29 @@ body > * { position: relative; z-index: 1; }
   position: relative; display: inline-block; margin-top: 8px;
 }
 .cmt-preview img { max-height: 120px; border: 1px solid var(--card-border); border-radius: 2px; }
+/* Reply styles */
+.cmt-replies { margin-left: 50px; border-left: 1px solid var(--card-border); }
+.cmt-item-reply { padding: 14px 0 14px 14px; }
+.cmt-item-reply .cmt-item-avatar { width: 28px; height: 28px; font-size: 12px; }
+.cmt-reply-btn {
+  background: none; border: none; color: var(--text-dim); font-size: 11px;
+  cursor: pointer; opacity: 0; transition: opacity 0.3s;
+  font-family: var(--font-ui); padding: 0 4px;
+}
+.cmt-item:hover .cmt-reply-btn { opacity: 1; }
+.cmt-reply-btn:hover { color: var(--blue); }
+.cmt-reply-to { font-size: 11px; color: var(--blue); opacity: 0.6; }
+.cmt-reply-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 12px; margin-bottom: 6px; font-size: 12px;
+  background: rgba(77,184,255,0.05); border-left: 2px solid var(--blue);
+  color: var(--text-sub);
+}
+.cmt-reply-bar button {
+  background: none; border: none; color: var(--text-dim);
+  font-size: 11px; cursor: pointer;
+}
+.cmt-reply-bar button:hover { color: var(--pink); }
 .cmt-preview-rm {
   position: absolute; top: -6px; right: -6px;
   width: 20px; height: 20px; border-radius: 50%;

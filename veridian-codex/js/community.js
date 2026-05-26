@@ -190,6 +190,30 @@
     if (cmtAvatarLetter) cmtAvatarLetter.textContent = nick.charAt(0);
   }
 
+  // ---------- Reply State ----------
+  var replyToId = null;
+  var replyToNick = null;
+
+  window.startReply = function (id, nick) {
+    if (!currentUser) return showAuth('login');
+    replyToId = id;
+    replyToNick = nick;
+    var text = document.getElementById('cmtText');
+    text.placeholder = '回复 ' + nick + '…';
+    text.focus();
+    // Show cancel hint
+    var bar = document.getElementById('replyBar');
+    if (bar) { bar.style.display = 'flex'; bar.querySelector('span').textContent = '回复 ' + nick; }
+  };
+
+  window.cancelReply = function () {
+    replyToId = null;
+    replyToNick = null;
+    document.getElementById('cmtText').placeholder = '说点什么吧…';
+    var bar = document.getElementById('replyBar');
+    if (bar) bar.style.display = 'none';
+  };
+
   // ---------- Image Preview ----------
   var pendingFile = null;
 
@@ -246,22 +270,46 @@
 
     var finalContent = content + (imageUrl ? '\n' + imageUrl : '');
 
-    var { data: insertData, error } = await sb.from('comments').insert({
-      user_id: currentUser.id,
-      nick: nick,
-      content: finalContent
-    }).select('id').single();
+    var insertObj = { user_id: currentUser.id, nick: nick, content: finalContent };
+    if (replyToId) insertObj.reply_to = replyToId;
+
+    var { data: insertData, error } = await sb.from('comments')
+      .insert(insertObj).select('id').single();
 
     btn.disabled = false;
     btn.textContent = '发表留言';
 
     if (error) { alert('发送失败，请稍后重试'); return; }
 
+    var savedReplyTo = replyToId;
+    var savedReplyNick = replyToNick;
     text.value = '';
     document.getElementById('cmtLen').textContent = '0';
     clearImage();
+    cancelReply();
+
     var newId = insertData ? insertData.id : null;
-    prependComment({ id: newId, nick: nick, content: finalContent, created_at: new Date().toISOString(), user_id: currentUser.id });
+    var newComment = { id: newId, nick: nick, content: finalContent, created_at: new Date().toISOString(), user_id: currentUser.id, reply_to: savedReplyTo, reply_to_nick: savedReplyNick };
+
+    if (savedReplyTo) {
+      // Append reply under parent comment
+      var parentEl = document.querySelector('.cmt-item[data-id="' + savedReplyTo + '"]');
+      if (parentEl) {
+        var repliesDiv = parentEl.nextElementSibling;
+        if (!repliesDiv || !repliesDiv.classList.contains('cmt-replies')) {
+          repliesDiv = document.createElement('div');
+          repliesDiv.className = 'cmt-replies';
+          parentEl.parentNode.insertBefore(repliesDiv, parentEl.nextSibling);
+        }
+        var div = document.createElement('div');
+        div.innerHTML = buildCommentHtml(newComment, true);
+        var node = div.firstChild;
+        node.classList.add('cmt-new');
+        repliesDiv.appendChild(node);
+      }
+    } else {
+      prependComment(newComment);
+    }
   };
 
   // ---------- Delete Comment ----------
@@ -288,9 +336,9 @@
 
     var { data, error } = await sb
       .from('comments')
-      .select('id, nick, content, created_at, user_id')
+      .select('id, nick, content, created_at, user_id, reply_to')
       .order('created_at', { ascending: false })
-      .limit(50);
+      .limit(200);
 
     if (error) {
       if (loadingEl) loadingEl.textContent = '评论加载失败';
@@ -304,8 +352,30 @@
       return;
     }
 
+    // Group: top-level comments and their replies
+    var byId = {};
+    var topLevel = [];
+    var replies = [];
+    data.forEach(function (item) { byId[item.id] = item; });
+    data.forEach(function (item) {
+      if (item.reply_to) {
+        // Find parent nick
+        if (byId[item.reply_to]) item.reply_to_nick = byId[item.reply_to].nick;
+        replies.push(item);
+      } else {
+        item.replies = [];
+        topLevel.push(item);
+      }
+    });
+    // Attach replies to parents
+    replies.reverse(); // oldest first for replies
+    replies.forEach(function (r) {
+      var parent = topLevel.find(function (t) { return t.id === r.reply_to; });
+      if (parent) parent.replies.push(r);
+    });
+
     var html = '';
-    data.forEach(function (item) { html += buildCommentHtml(item); });
+    topLevel.forEach(function (item) { html += buildCommentHtml(item); });
     listEl.innerHTML = html;
   }
 
@@ -321,22 +391,30 @@
     listEl.insertBefore(node, listEl.firstChild);
   }
 
-  function buildCommentHtml(data) {
+  function buildCommentHtml(data, isReply) {
     var time = formatTime(data.created_at);
     var letter = data.nick ? data.nick.charAt(0) : '?';
     var isOwn = currentUser && data.user_id === currentUser.id;
     var delBtn = isOwn && data.id ? '<button class="cmt-del" onclick="deleteComment(' + data.id + ',this)" title="删除">×</button>' : '';
-    return '<div class="cmt-item">' +
-      '<span class="cmt-item-avatar">' + escHtml(letter) + '</span>' +
+    var replyBtn = data.id && !isReply ? '<button class="cmt-reply-btn" onclick="startReply(' + data.id + ',\'' + escHtml(data.nick).replace(/'/g, "\\'") + '\')">回复</button>' : '';
+    var repliesHtml = '';
+    if (data.replies && data.replies.length > 0) {
+      repliesHtml = '<div class="cmt-replies">';
+      data.replies.forEach(function (r) { repliesHtml += buildCommentHtml(r, true); });
+      repliesHtml += '</div>';
+    }
+    return '<div class="cmt-item' + (isReply ? ' cmt-item-reply' : '') + '" data-id="' + (data.id || '') + '">' +
+      '<span class="cmt-item-avatar' + (isReply ? ' cmt-avatar-sm' : '') + '">' + escHtml(letter) + '</span>' +
       '<div class="cmt-item-body">' +
         '<div class="cmt-item-head">' +
           '<span class="cmt-item-nick">' + escHtml(data.nick) + '</span>' +
+          (data.reply_to_nick ? '<span class="cmt-reply-to">回复 ' + escHtml(data.reply_to_nick) + '</span>' : '') +
           '<span class="cmt-item-time">' + time + '</span>' +
-          delBtn +
+          replyBtn + delBtn +
         '</div>' +
         '<p class="cmt-item-text">' + renderContent(data.content) + '</p>' +
       '</div>' +
-    '</div>';
+    '</div>' + repliesHtml;
   }
 
   function formatTime(dateStr) {
