@@ -11,6 +11,8 @@
   }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
 
   document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-s,.sec-hd').forEach(el => obs.observe(el));
+  // Re-observe after dynamic content loads
+  window._rvObs = obs;
 
   /* ---------- Scroll: progress + nav + parallax ---------- */
   const prog = document.getElementById('prog');
