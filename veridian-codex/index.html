@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>蔚律之都 VERIDIAN CODEX — 官方网站</title>
+  <meta name="description" content="蔚律之都 VERIDIAN CODEX — 赛博朋克视觉小说。SaltFish Studio 出品。">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="img/icon-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/icon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/icon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/icon-180.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+<div class="bg-decor" id="bgDecor"></div>
+
+<!-- AGE GATE -->
+<div class="age" id="ag">
+  <div class="age-box">
+    <h2>年龄确认</h2>
+    <p>本作品包含成人内容。<br>请确认您已年满18周岁。</p>
+    <div class="age-btns">
+      <button class="age-btn y" onclick="ageConfirm()">已满18岁</button>
+      <button class="age-btn n" onclick="ageReject()">未满18岁</button>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo">
+      <img src="img/brand_cropped.png" alt="SaltFish Studio">
+    </a>
+    <button class="mob-toggle" id="mobT">&#9776;</button>
+    <ul class="nav-links" id="navL">
+      <li><a href="#top">TOP</a></li>
+      <li><a href="#story">STORY</a></li>
+      <li><a href="#character">CHARACTER</a></li>
+      <li><a href="#gallery">GALLERY</a></li>
+      <li><a href="#movie">MOVIE</a></li>
+      <li><a href="#spec">SPEC</a></li>
+      <li><a href="#community">TALK</a></li>
+    </ul>
+    <div class="nav-user" id="navUser">
+      <button class="auth-trigger" onclick="showAuth('login')">登录</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg" id="hBg"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-content">
+    <img class="hero-logo" src="img/game_logo_cropped.png" alt="蔚律之都 Veridian Codex">
+    <p class="hero-sub">SaltFish Studio</p>
+    <a href="#story" class="hero-cta">探索蔚律之都</a>
+    <div class="hero-social">
+      <a href="https://space.bilibili.com/3546577098508524" target="_blank" rel="noopener" class="social-link" title="Bilibili">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373z"/></svg>
+      </a>
+      <a href="https://www.xiaoheihe.cn/bbs/user_profile_share?user_id=fb9868a2b333&h_src=heyboxapp" target="_blank" rel="noopener" class="social-link" title="小黑盒">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm1 4v2h10V6H7zm0 4v2h10v-2H7zm0 4v2h6v-2H7z"/></svg>
+      </a>
+      <a href="https://www.xiaoheihe.cn/app/bbs/link/182042929" target="_blank" rel="noopener" class="social-link" title="最新公告">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12zM11 5h2v6h-2zm0 8h2v2h-2z"/></svg>
+      </a>
+      <a href="https://qm.qq.com/q/922187128" target="_blank" rel="noopener" class="social-link" title="QQ群: 922187128">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.395 15.035a39.548 39.548 0 0 0-1.51-2.691c-.198-.33-.399-.655-.6-.972a10.05 10.05 0 0 0-.399-5.117C17.95 3.24 15.143 1.2 12 1.2c-3.143 0-5.95 2.04-6.886 5.055a10.05 10.05 0 0 0-.399 5.117c-.201.317-.402.642-.6.972a39.548 39.548 0 0 0-1.51 2.691c-.786 1.5-.727 2.097-.54 2.382.39.593 1.59.143 2.836-.791a9.39 9.39 0 0 0 1.235-1.069c.758.398 1.598.694 2.49.873a4.56 4.56 0 0 0-.308 1.025C7.968 18.99 8.61 20.4 10.2 20.4h3.6c1.59 0 2.232-1.41 1.882-2.945a4.56 4.56 0 0 0-.308-1.025 8.653 8.653 0 0 0 2.49-.873 9.39 9.39 0 0 0 1.235 1.069c1.246.934 2.446 1.384 2.836.791.187-.285.246-.882-.54-2.382z"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONCEPT -->
+<section class="concept">
+  <div class="concept-inner rv">
+    <p class="concept-text">
+      想在赛博工作室内与极度弟控的微醺系姐姐尽情歪腻吗？<br>
+      想在优雅的咖啡厅里攻略温柔可爱的娇弱女仆吗？<br>
+      想在激烈的战斗与复仇中拯救傲娇的美少女青梅吗？<br>
+      想在过去与未来的缝隙间寻找神秘少女与自己的真相吗？<br><br>
+      这座由未来科技所打造的人工城市——<span class="hl">蔚律之都</span>，<br>
+      你将在这里体验到以上的所有故事，它将为你实现。
+    </p>
+    <p class="concept-deco">VERIDIAN CODEX</p>
+  </div>
+</section>
+
+<!-- KEY VISUAL -->
+<section class="kv">
+  <div class="kv-frame rv-s">
+    <img src="img/kv.jpg" alt="蔚律之都 主视觉" loading="lazy">
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story sec-diag" id="story">
+  <div class="wrap">
+    <div class="sec-hd rv">
+      <p class="en"><span class="dia"></span> STORY <span class="dia"></span></p>
+      <h2>故事背景</h2>
+    </div>
+    <div class="story-grid">
+      <div class="story-panel rv-l">
+        <p>这里是新世界的起点——蔚律之都。</p>
+        <p>21XX年，科技迎来爆发式增长，信息壁垒、交通桎梏、气象难题，乃至人与人之间的语言隔阂被逐一扫清。而汇聚了所有这些奇迹的，便是这片太平洋上的人工大陆——一座由最先进AI端脑全权掌控的未来都市：蔚律之都。</p>
+        <p>羽生祐斗自记事起，便在姐姐羽生祐希经营的「羽生事务所」中帮忙，日复一日处理着琐碎而平淡的委托。因缘际会之下，他被迫与身形娇小却个性强势的冤家少女并肩共事，也邂逅了温柔体贴的咖啡店女仆。</p>
+        <p>直到那位神秘的白发少女，猝不及防地闯入了他的生活。那些被尘封的不为人知的过去、清晰可触的未来，以及蔚律之都繁华表象下涌动的暗流，自此被彻底搅动——羽生祐斗平淡的生活，也迎来了无法逆转的改变。</p>
+      </div>
+      <div class="features">
+        <div class="feat rv-r d1">
+          <div class="feat-n">01</div>
+          <div><h4>4位女主 &middot; 独立完整剧情线</h4><p>聚焦4位性格迥异的核心女主角，每条路线独立完整，带来截然不同的故事体验。</p></div>
+        </div>
+        <div class="feat rv-r d2">
+          <div class="feat-n">02</div>
+          <div><h4>多套专属服装设计</h4><p>每位女主配备多套专属服装，贴合角色人设，丰富视觉体验。</p></div>
+        </div>
+        <div class="feat rv-r d3">
+          <div class="feat-n">03</div>
+          <div><h4>纯手工制作</h4><p>所有场景、人设、CG均采用纯手工创作，不使用AI生成，匠心打磨每一帧画面。</p></div>
+        </div>
+        <div class="feat rv-r d4">
+          <div class="feat-n">04</div>
+          <div><h4>日语全语音</h4><p>全程日语配音，邀请专业声优演绎，打造沉浸式听觉体验。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHARACTERS (built from JSON) -->
+<section class="chars" id="character">
+  <div class="wrap">
+    <div class="sec-hd rv">
+      <p class="en"><span class="dia"></span> CHARACTER <span class="dia"></span></p>
+      <h2>登场人物</h2>
+    </div>
+    <div class="c-tabs rv d1" id="cTabs"></div>
+    <div class="c-display rv d2" id="cDisplay"></div>
+  </div>
+</section>
+
+<!-- GALLERY (built from JSON) -->
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="sec-hd rv">
+      <p class="en"><span class="dia"></span> GALLERY <span class="dia"></span></p>
+      <h2>游戏画廊</h2>
+    </div>
+    <div class="g-grid" id="gGrid"></div>
+  </div>
+</section>
+
+<!-- MOVIE -->
+<section class="movie" id="movie">
+  <div class="wrap">
+    <div class="sec-hd rv">
+      <p class="en"><span class="dia"></span> MOVIE <span class="dia"></span></p>
+      <h2>宣传影像</h2>
+    </div>
+    <div class="movie-box rv-s d1">
+      <iframe src="https://player.bilibili.com/player.html?bvid=BV1vUn2zZEW8&autoplay=0&high_quality=1" allowfullscreen="true" frameborder="0" scrolling="no" style="width:100%;aspect-ratio:16/9;display:block;"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- SPEC -->
+<section class="spec" id="spec">
+  <div class="wrap">
+    <div class="sec-hd rv">
+      <p class="en"><span class="dia"></span> SPEC <span class="dia"></span></p>
+      <h2>游戏情报</h2>
+    </div>
+    <div class="spec-grid">
+      <table class="spec-tbl rv-l d1">
+        <tr><th>作品名</th><td>蔚律之都<br><span style="font-size:12px;color:var(--text-dim)">VERIDIAN CODEX</span></td></tr>
+        <tr><th>类型</th><td>视觉小说</td></tr>
+        <tr><th>开发</th><td>SaltFish Studio</td></tr>
+        <tr><th>发售日</th><td>即将公布</td></tr>
+        <tr><th>平台</th><td>PC (Windows)</td></tr>
+        <tr><th>分级</th><td>R18</td></tr>
+      </table>
+      <table class="spec-tbl rv-r d2">
+        <tr><th>文本</th><td>简体中文</td></tr>
+        <tr><th>配音</th><td>日语全语音</td></tr>
+        <tr><th>分辨率</th><td>1920 x 1080</td></tr>
+        <tr><th>标签</th><td><div class="s-tags">
+          <span class="s-tag">Galgame</span><span class="s-tag">视觉小说</span>
+          <span class="s-tag">恋爱模拟</span><span class="s-tag">冒险</span>
+          <span class="s-tag">文字游戏</span><span class="s-tag">赛博朋克</span>
+        </div></td></tr>
+        <tr><th>引擎</th><td>Ren'Py</td></tr>
+      </table>
+    </div>
+    <div class="spec-cta rv d3">
+      <a class="steam-btn" href="#">
+        <svg viewBox="0 0 256 259" fill="currentColor"><path d="M128 0C57.3 0 0 52.7 0 117.8c0 1.5 0 3 .1 4.5l68.8 28.4c5.9-4 13-6.4 20.7-6.4.7 0 1.4 0 2 .1l31-44.9v-.6c0-26.4 21.5-47.9 47.9-47.9s47.9 21.5 47.9 47.9-21.5 47.9-47.9 47.9h-1.1l-44.2 31.5c0 .5.1 1 .1 1.5 0 19.8-16.1 35.9-35.9 35.9-17.5 0-32.1-12.6-35.2-29.2L4.4 163.6C20.4 216.2 69.3 254.8 128 258.5v.1c70.7 0 128-52.7 128-117.8v-.5C256 75.7 198.7 23 128 23V0z"/></svg>
+        COMING SOON ON STEAM
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="community" id="community">
+  <div class="wrap">
+    <div class="sec-hd rv">
+      <p class="en"><span class="dia"></span> COMMUNITY <span class="dia"></span></p>
+      <h2>玩家留言</h2>
+    </div>
+    <div class="cmt-box rv d1">
+      <div class="cmt-form" id="cmtForm">
+        <div class="cmt-login-hint" id="cmtHint">
+          <p>登录后即可发表留言</p>
+          <button class="auth-trigger" onclick="showAuth('login')">登录 / 注册</button>
+        </div>
+        <div class="cmt-input" id="cmtInput" style="display:none">
+          <div class="cmt-user-bar">
+            <span class="cmt-avatar-letter" id="cmtAvatarLetter"></span>
+            <span id="cmtNick"></span>
+            <button class="cmt-logout" onclick="doLogout()">退出</button>
+          </div>
+          <textarea id="cmtText" placeholder="说点什么吧…" maxlength="500" rows="3"></textarea>
+          <div class="cmt-actions">
+            <span class="cmt-count"><span id="cmtLen">0</span>/500</span>
+            <button class="cmt-submit" id="cmtSubmit" onclick="submitComment()">发表留言</button>
+          </div>
+        </div>
+      </div>
+      <div class="cmt-list" id="cmtList">
+        <div class="cmt-loading" id="cmtLoading">加载中…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-in">
+    <div class="footer-brand">
+      <img src="img/brand_cropped.png" alt="SaltFish Studio">
+      <span>SALTFISH STUDIO</span>
+    </div>
+    <p class="footer-copy">&copy; 2025 SaltFish Studio. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" onclick="closeLB(event)">
+  <button class="lb-x" onclick="closeLB(event)">&times;</button>
+  <img id="lbi" src="" alt="">
+</div>
+
+<!-- AUTH MODAL -->
+<div class="auth-overlay" id="authModal" onclick="closeAuth(event)">
+  <div class="auth-box">
+    <button class="auth-close" onclick="closeAuth(event)">&times;</button>
+    <div class="auth-tabs">
+      <button class="auth-tab act" data-tab="login" onclick="switchTab('login')">登录</button>
+      <button class="auth-tab" data-tab="register" onclick="switchTab('register')">注册</button>
+    </div>
+    <div class="auth-error" id="authError"></div>
+    <div id="authLogin">
+      <input type="text" id="loginUser" placeholder="用户名" autocomplete="username">
+      <input type="password" id="loginPass" placeholder="密码" autocomplete="current-password">
+      <button class="auth-btn" onclick="doLogin()">登录</button>
+    </div>
+    <div id="authRegister" style="display:none">
+      <input type="text" id="regNick" placeholder="昵称（显示名）" maxlength="16">
+      <input type="text" id="regUser" placeholder="用户名（字母/数字/下划线）" maxlength="20" autocomplete="username">
+      <input type="password" id="regPass" placeholder="密码（至少6位）" autocomplete="new-password">
+      <button class="auth-btn" onclick="doRegister()">注册</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/community.js"></script>
+</body>
+</html>
