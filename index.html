@@ -104,6 +104,42 @@
       letter-spacing: 1px;
     }
 
+    /* CTA Buttons */
+    .cta-row {
+      display: flex; gap: 12px; justify-content: center; margin-top: 16px;
+      animation: slideUp 0.8s ease 0.7s both;
+    }
+    .cta-row:first-of-type { margin-top: 28px; }
+    .cta {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 11px 28px; font-size: 13px; letter-spacing: 2px;
+      text-decoration: none; transition: all 0.35s;
+      border: 1px solid rgba(77,184,255,0.4); color: var(--blue);
+      background: rgba(77,184,255,0.06); flex: 1; max-width: 220px;
+    }
+    .cta:hover {
+      background: rgba(77,184,255,0.15); border-color: var(--blue);
+      transform: translateY(-2px); box-shadow: 0 6px 24px rgba(77,184,255,0.1);
+    }
+    .cta-alt {
+      border-color: rgba(255,255,255,0.1); color: var(--dim);
+      background: transparent;
+    }
+    .cta-alt:hover {
+      border-color: rgba(255,255,255,0.25); color: var(--text);
+      background: rgba(255,255,255,0.04); box-shadow: none;
+    }
+    .cta-steam {
+      border-color: rgba(102,192,244,0.3); color: #9ecfe8;
+      background: linear-gradient(135deg, rgba(27,40,56,0.6), rgba(42,71,94,0.4));
+    }
+    .cta-steam:hover {
+      background: linear-gradient(135deg, rgba(42,71,94,0.8), rgba(61,107,142,0.5));
+      border-color: rgba(102,192,244,0.5);
+      box-shadow: 0 6px 24px rgba(102,192,244,0.08);
+    }
+    .div2 { margin-top: 40px; margin-bottom: 24px; }
+
     /* Social */
     .social {
       display: flex; gap: 14px; justify-content: center;
@@ -158,6 +194,21 @@
         <span class="game-card-tag">COMING SOON</span>
       </div>
     </a>
+
+    <!-- CTA Buttons -->
+    <div class="cta-row">
+      <a class="cta" href="veridian-codex/">进入官网 →</a>
+      <a class="cta cta-alt" href="https://www.xiaoheihe.cn/app/bbs/link/182042929" target="_blank">最新公告</a>
+    </div>
+    <div class="cta-row">
+      <a class="cta cta-steam" href="#">
+        <svg viewBox="0 0 256 259" fill="currentColor" style="width:16px;height:16px;margin-right:6px"><path d="M128 0C57.3 0 0 52.7 0 117.8c0 1.5 0 3 .1 4.5l68.8 28.4c5.9-4 13-6.4 20.7-6.4.7 0 1.4 0 2 .1l31-44.9v-.6c0-26.4 21.5-47.9 47.9-47.9s47.9 21.5 47.9 47.9-21.5 47.9-47.9 47.9h-1.1l-44.2 31.5c0 .5.1 1 .1 1.5 0 19.8-16.1 35.9-35.9 35.9-17.5 0-32.1-12.6-35.2-29.2L4.4 163.6C20.4 216.2 69.3 254.8 128 258.5v.1c70.7 0 128-52.7 128-117.8v-.5C256 75.7 198.7 23 128 23V0z"/></svg>
+        Steam 愿望单
+      </a>
+      <a class="cta cta-alt" href="https://qm.qq.com/q/922187128" target="_blank">加入QQ群</a>
+    </div>
+
+    <div class="divider div2"><span>FOLLOW US</span></div>
 
     <div class="social">
       <a href="https://space.bilibili.com/3546577098508524" target="_blank" rel="noopener" title="Bilibili">
