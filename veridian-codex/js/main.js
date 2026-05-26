@@ -182,8 +182,13 @@
   }
 
   /* ---------- Age Gate ---------- */
+  // Always start at top when page loads (before age gate is dismissed)
+  if (document.getElementById('ag') && !document.getElementById('ag').classList.contains('hide')) {
+    window.scrollTo(0, 0);
+  }
   window.ageConfirm = function () {
     document.getElementById('ag').classList.add('hide');
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
   window.ageReject = function () {
     window.location.href = 'about:blank';

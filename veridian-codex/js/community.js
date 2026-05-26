@@ -190,6 +190,29 @@
     if (cmtAvatarLetter) cmtAvatarLetter.textContent = nick.charAt(0);
   }
 
+  // ---------- Image Preview ----------
+  var pendingFile = null;
+
+  window.previewImage = function (input) {
+    var file = input.files && input.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { alert('图片不能超过 5MB'); input.value = ''; return; }
+    pendingFile = file;
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      document.getElementById('cmtPreviewImg').src = e.target.result;
+      document.getElementById('cmtPreview').style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  };
+
+  window.clearImage = function () {
+    pendingFile = null;
+    document.getElementById('cmtPreview').style.display = 'none';
+    document.getElementById('cmtPreviewImg').src = '';
+    document.getElementById('cmtFile').value = '';
+  };
+
   // ---------- Submit Comment ----------
   window.submitComment = async function () {
     var { data: sessionData } = await sb.auth.getSession();
@@ -198,7 +221,8 @@
 
     var text = document.getElementById('cmtText');
     var content = text.value.trim();
-    if (!content || content.length > 500) return;
+    if (!content && !pendingFile) return;
+    if (content.length > 500) return;
 
     var btn = document.getElementById('cmtSubmit');
     btn.disabled = true;
@@ -206,24 +230,50 @@
 
     var meta = currentUser.user_metadata || {};
     var nick = meta.nick || meta.username || 'User';
+    var imageUrl = '';
+
+    // Upload image if present
+    if (pendingFile) {
+      var ext = pendingFile.name.split('.').pop() || 'jpg';
+      var path = currentUser.id + '/' + Date.now() + '.' + ext;
+      var { data: upData, error: upErr } = await sb.storage
+        .from('comment-images')
+        .upload(path, pendingFile, { contentType: pendingFile.type });
+      if (upErr) { alert('图片上传失败'); btn.disabled = false; btn.textContent = '发表留言'; return; }
+      var { data: urlData } = sb.storage.from('comment-images').getPublicUrl(path);
+      imageUrl = urlData.publicUrl;
+    }
+
+    var finalContent = content + (imageUrl ? '\n' + imageUrl : '');
 
     var { error } = await sb.from('comments').insert({
       user_id: currentUser.id,
       nick: nick,
-      content: content
+      content: finalContent
     });
 
     btn.disabled = false;
     btn.textContent = '发表留言';
 
-    if (error) {
-      alert('发送失败，请稍后重试');
-      return;
-    }
+    if (error) { alert('发送失败，请稍后重试'); return; }
 
     text.value = '';
     document.getElementById('cmtLen').textContent = '0';
-    prependComment({ nick: nick, content: content, created_at: new Date().toISOString() });
+    clearImage();
+    prependComment({ id: null, nick: nick, content: finalContent, created_at: new Date().toISOString(), user_id: currentUser.id });
+  };
+
+  // ---------- Delete Comment ----------
+  window.deleteComment = async function (id, el) {
+    if (!confirm('确定删除这条留言？')) return;
+    var { error } = await sb.from('comments').delete().eq('id', id);
+    if (error) { alert('删除失败'); return; }
+    el.closest('.cmt-item').remove();
+    // Check if list is empty
+    var listEl = document.getElementById('cmtList');
+    if (listEl && !listEl.querySelector('.cmt-item')) {
+      listEl.innerHTML = '<div class="cmt-empty">还没有留言，来做第一个吧！</div>';
+    }
   };
 
   // ---------- Load Comments ----------
@@ -237,7 +287,7 @@
 
     var { data, error } = await sb
       .from('comments')
-      .select('nick, content, created_at')
+      .select('id, nick, content, created_at, user_id')
       .order('created_at', { ascending: false })
       .limit(50);
 
@@ -273,14 +323,17 @@
   function buildCommentHtml(data) {
     var time = formatTime(data.created_at);
     var letter = data.nick ? data.nick.charAt(0) : '?';
+    var isOwn = currentUser && data.user_id === currentUser.id;
+    var delBtn = isOwn && data.id ? '<button class="cmt-del" onclick="deleteComment(' + data.id + ',this)" title="删除">×</button>' : '';
     return '<div class="cmt-item">' +
       '<span class="cmt-item-avatar">' + escHtml(letter) + '</span>' +
       '<div class="cmt-item-body">' +
         '<div class="cmt-item-head">' +
           '<span class="cmt-item-nick">' + escHtml(data.nick) + '</span>' +
           '<span class="cmt-item-time">' + time + '</span>' +
+          delBtn +
         '</div>' +
-        '<p class="cmt-item-text">' + escHtml(data.content) + '</p>' +
+        '<p class="cmt-item-text">' + renderContent(data.content) + '</p>' +
       '</div>' +
     '</div>';
   }
@@ -295,6 +348,24 @@
     if (diff < 86400) return Math.floor(diff / 3600) + '小时前';
     if (diff < 2592000) return Math.floor(diff / 86400) + '天前';
     return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+  }
+
+  // Render text with image URL detection
+  function renderContent(str) {
+    if (!str) return '';
+    var imgRe = /https?:\/\/\S+\.(?:png|jpg|jpeg|gif|webp)(?:\?\S*)?/gi;
+    // Split text by image URLs
+    var parts = str.split(imgRe);
+    var imgs = str.match(imgRe) || [];
+    var html = '';
+    for (var i = 0; i < parts.length; i++) {
+      html += escHtml(parts[i]);
+      if (i < imgs.length) {
+        var src = escHtml(imgs[i]);
+        html += '<img class="cmt-img" src="' + src + '" alt="image" loading="lazy" onclick="openLB(this.parentNode.parentNode)">';
+      }
+    }
+    return html;
   }
 
   function escHtml(str) {
