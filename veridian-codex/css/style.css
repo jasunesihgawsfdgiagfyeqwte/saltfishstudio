@@ -204,22 +204,54 @@ body > * { position: relative; z-index: 1; }
 
 /* Hero Social Links */
 .hero-social {
-  display: flex; gap: 16px; justify-content: center; margin-top: 28px;
-  animation: fadeUp 1s ease .9s both;
+  display: flex; gap: 10px; justify-content: center; margin-top: 28px;
+  animation: fadeUp 1s ease .9s both; flex-wrap: wrap;
 }
 .social-link {
-  display: flex; align-items: center; justify-content: center;
-  width: 40px; height: 40px;
-  border: 1px solid rgba(255,255,255,0.15); border-radius: 50%;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 16px; border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.15);
   color: rgba(255,255,255,0.5); transition: all 0.35s;
+  text-decoration: none; cursor: pointer; background: none;
+  font-family: var(--font-ui); font-size: 12px; letter-spacing: 1px;
 }
-.social-link svg { width: 18px; height: 18px; }
+.social-link svg { width: 15px; height: 15px; flex-shrink: 0; }
 .social-link:hover {
   color: var(--blue); border-color: var(--blue);
   background: rgba(77,184,255,0.08);
   transform: translateY(-2px);
   box-shadow: 0 4px 20px rgba(77,184,255,0.15);
 }
+/* QQ Group Popup */
+.qq-popup {
+  display: none; position: fixed; inset: 0; z-index: 5000;
+  background: rgba(6,8,16,0.9); backdrop-filter: blur(8px);
+  align-items: center; justify-content: center;
+}
+.qq-popup.open { display: flex; }
+.qq-popup-box {
+  background: var(--card); border: 1px solid var(--card-border);
+  padding: 36px 40px; text-align: center; position: relative;
+  animation: lbIn 0.3s ease;
+}
+.qq-popup-close {
+  position: absolute; top: 10px; right: 14px;
+  background: none; border: none; color: var(--text-dim);
+  font-size: 22px; cursor: pointer;
+}
+.qq-popup-close:hover { color: var(--text-sub); }
+.qq-popup-title {
+  font-family: var(--font-ui); font-size: 14px;
+  color: var(--text-sub); margin-bottom: 12px; letter-spacing: 2px;
+}
+.qq-popup-num {
+  font-family: var(--font-ui); font-size: 32px;
+  color: var(--blue); letter-spacing: 4px; cursor: pointer;
+  padding: 8px 24px; border: 1px dashed rgba(77,184,255,0.3);
+  transition: all 0.3s; margin-bottom: 12px;
+}
+.qq-popup-num:hover { background: rgba(77,184,255,0.08); border-style: solid; }
+.qq-popup-tip { font-size: 12px; color: var(--text-dim); }
 
 /* Glitch effect on logo */
 .hero-logo.glitch {

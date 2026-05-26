@@ -60,18 +60,31 @@
     <p class="hero-sub">SaltFish Studio</p>
     <a href="#story" class="hero-cta">探索蔚律之都</a>
     <div class="hero-social">
-      <a href="https://space.bilibili.com/3546577098508524" target="_blank" rel="noopener" class="social-link" title="Bilibili">
+      <a href="https://space.bilibili.com/3546577098508524" target="_blank" rel="noopener" class="social-link">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373z"/></svg>
+        <span>B站</span>
       </a>
-      <a href="https://www.xiaoheihe.cn/bbs/user_profile_share?user_id=fb9868a2b333&h_src=heyboxapp" target="_blank" rel="noopener" class="social-link" title="小黑盒">
+      <a href="https://www.xiaoheihe.cn/bbs/user_profile_share?user_id=fb9868a2b333&h_src=heyboxapp" target="_blank" rel="noopener" class="social-link">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm1 4v2h10V6H7zm0 4v2h10v-2H7zm0 4v2h6v-2H7z"/></svg>
+        <span>小黑盒</span>
       </a>
-      <a href="https://www.xiaoheihe.cn/app/bbs/link/182042929" target="_blank" rel="noopener" class="social-link" title="最新公告">
+      <a href="https://www.xiaoheihe.cn/app/bbs/link/182042929" target="_blank" rel="noopener" class="social-link">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12zM11 5h2v6h-2zm0 8h2v2h-2z"/></svg>
+        <span>公告</span>
       </a>
-      <a href="https://qm.qq.com/q/922187128" target="_blank" rel="noopener" class="social-link" title="QQ群: 922187128">
+      <button class="social-link" onclick="document.getElementById('qqPopup').classList.add('open')">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.395 15.035a39.548 39.548 0 0 0-1.51-2.691c-.198-.33-.399-.655-.6-.972a10.05 10.05 0 0 0-.399-5.117C17.95 3.24 15.143 1.2 12 1.2c-3.143 0-5.95 2.04-6.886 5.055a10.05 10.05 0 0 0-.399 5.117c-.201.317-.402.642-.6.972a39.548 39.548 0 0 0-1.51 2.691c-.786 1.5-.727 2.097-.54 2.382.39.593 1.59.143 2.836-.791a9.39 9.39 0 0 0 1.235-1.069c.758.398 1.598.694 2.49.873a4.56 4.56 0 0 0-.308 1.025C7.968 18.99 8.61 20.4 10.2 20.4h3.6c1.59 0 2.232-1.41 1.882-2.945a4.56 4.56 0 0 0-.308-1.025 8.653 8.653 0 0 0 2.49-.873 9.39 9.39 0 0 0 1.235 1.069c1.246.934 2.446 1.384 2.836.791.187-.285.246-.882-.54-2.382z"/></svg>
-      </a>
+        <span>QQ群</span>
+      </button>
+    </div>
+    <!-- QQ Group Popup -->
+    <div class="qq-popup" id="qqPopup" onclick="if(event.target===this)this.classList.remove('open')">
+      <div class="qq-popup-box">
+        <button class="qq-popup-close" onclick="document.getElementById('qqPopup').classList.remove('open')">&times;</button>
+        <p class="qq-popup-title">官方QQ群</p>
+        <p class="qq-popup-num" onclick="navigator.clipboard.writeText('922187128').then(function(){document.querySelector('.qq-popup-tip').textContent='已复制!'})">922187128</p>
+        <p class="qq-popup-tip">点击群号复制，打开QQ搜索加入</p>
+      </div>
     </div>
   </div>
 </section>
