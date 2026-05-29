@@ -1,7 +1,7 @@
 {
   "characters": [
     {
-      "id": "cy", "name": "羽生 祐斗", "en": "YUTO", "color": "gray",
+      "id": "cy", "name": "羽生 祐斗", "en": "YUUTO", "color": "gray",
       "img": "img/char1.jpg",
       "desc": "<strong>本作主角。</strong>自小在羽生事务所长大，性格温和通透，习惯默默承担，看似平凡，却在遇到白发少女后，逐渐揭开自己与都市的关联。"
     },
@@ -21,7 +21,7 @@
       "desc": "<strong>温柔体贴的咖啡店女仆。</strong>善解人意，在祐斗疲惫时给予陪伴与安慰，温柔的外表下隐藏着秘密。"
     },
     {
-      "id": "cs", "name": "影浦 修娅", "en": "SHUYA", "color": "green",
+      "id": "cs", "name": "影浦 修娅", "en": "SYUUA", "color": "green",
       "img": "img/char5.jpg",
       "desc": "<strong>神秘的白发少女。</strong>突然闯入祐斗的生活，身世成谜，她的出现将揭开所有过往与未来的真相。"
     }
